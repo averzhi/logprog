@@ -33,8 +33,8 @@ passExams(Stud):-
 %(Предмет, количество)
 
 failedNumber(Subj,N):-
-	subject(Ss,Subj),
-	findall(A,(student(_,_,A),gradeInList(A,Ss)),AllMarks),
+	subject(Abr,Subj),
+	findall(A,(student(_,_,A),gradeInList(A,Abr)),AllMarks),
 	length(AllMarks,N).
 
 gradeInList([grade(Subj,2)|_],Subj).
