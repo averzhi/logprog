@@ -1,15 +1,12 @@
 %Данные: 3 (three.pl)
 %Вариант: 3
-%    Для каждого студента, найти средний балл, и сдал ли он экзамены или нет
-%    Для каждого предмета, найти количество не сдавших студентов
-%    Для каждой группы, найти студента (студентов) с максимальным средним баллом
 
 :- ['three.pl'].
 
 %2.1 Для каждого студента, найти средний балл, и сдал ли он экзамены или нет
 %(Студент, Средняя оценка)
 
-midMark(Stud,Mark):-
+midMark(Stud,Mark):-      
 	student(_,Stud,Z),
 	sum(Z, Sum),
 	length(Z,Len),
@@ -19,10 +16,10 @@ midMark(Stud,Mark):-
 %Cумма всех элементов в списке
 %(Список, Сумма)
 
-sum([grade(_, H)|T],N):-
+sumAll([grade(_, H)|T],N):-
 	sum(T,N1),
 	N is N1+H.
-sum([],0).
+	sumAll([],0).
 
 %Сдал ли студент экзамены
 %Если хотя бы одна двойка, то false
@@ -35,7 +32,7 @@ passExams(Stud):-
 %2.2 Для каждого предмета, найти количество не сдавших студентов
 %(Предмет, количество)
 
-countOfFailed(Subj,N):-
+failedNumber(Subj,N):-
 	subject(Ss,Subj),
 	findall(A,(student(_,_,A),gradeInList(A,Ss)),AllMarks),
 	length(AllMarks,N).
@@ -50,10 +47,13 @@ gradeInList([_|Tail],Subj):-
 bestStudent(Group,N):-
 
   %собираем список со всеми средними оценками
+  
   findall(Mark, (student(Group,Stud,_), midMark(Stud,Mark)),Marks),
   %находим мвксимальную из них
   max(Marks,Max),
+  
   %составляем список из всех студентов имеющих такую оценку
+  
   findall(A,(student(Group,A,_), midMark(A,M), M==Max), N),!.
 
 %Нахождение максимального из положительного числового списка
