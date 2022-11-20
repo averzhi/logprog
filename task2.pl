@@ -46,13 +46,13 @@ gradeInList([_|Tail],Subj):-
 
 bestStudent(Group,N):-
 
-  %собираем список со всеми средними оценками
+  %список со всеми средними оценками
   
   findall(Mark, (student(Group,Stud,_), midMark(Stud,Mark)),Marks),
   %находим мвксимальную из них
   max(Marks,Max),
   
-  %составляем список из всех студентов имеющих такую оценку
+  %список всех студентов имеющих такую оценку
   
   findall(A,(student(Group,A,_), midMark(A,M), M==Max), N),!.
 
